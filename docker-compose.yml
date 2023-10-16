@@ -1,0 +1,17 @@
+# ./docker-compose.yml
+version: '3'
+
+services:
+  database:
+    image: jorgescarenzi/ecom-mysql:1.0
+    volumes:
+    # Crea volumen y ejecuta script para crear elementos de DB
+    - dbdata:/var/lib/mysql
+    - "./scripts/db-load-script.sql:/docker-entrypoint-initdb.d/1.sql"
+  web:
+    image: jorgescarenzi/ecom:1.0
+    container_name: ecom
+    ports:
+      - "1000:80"
+volumes:
+  dbdata:
